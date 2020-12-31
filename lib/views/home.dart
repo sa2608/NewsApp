@@ -5,6 +5,7 @@ import 'package:newsapp/helper/news.dart';
 import 'package:newsapp/models/article_model.dart';
 import 'package:newsapp/models/categori_model.dart';
 import 'package:newsapp/views/article_view.dart';
+import 'package:newsapp/views/category_news.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class Home extends StatefulWidget {
@@ -18,7 +19,7 @@ class _HomeState extends State<Home> {
   bool _loading = true;
   @override
   void initState() {
-    super.initState();    
+    super.initState();
     WebView.platform = SurfaceAndroidWebView();
     categories = getCategories();
     getNews();
@@ -87,7 +88,7 @@ class _HomeState extends State<Home> {
                           return BlogTile(
                             imageUrl: articles[index].urlToImage,
                             title: articles[index].title,
-                            desc: articles[index].description, 
+                            desc: articles[index].description,
                             url: articles[index].url,
                           );
                         },
@@ -102,12 +103,16 @@ class _HomeState extends State<Home> {
 }
 
 class CategoryTile extends StatelessWidget {
-  final imageUrl, categoryName;
+  final String imageUrl, categoryName;
   CategoryTile({this.imageUrl, this.categoryName});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: () {},
+      onTap: () {
+        Navigator.push(context, MaterialPageRoute(builder: (context) => CategoryNews(
+          category: categoryName.toString().toLowerCase(),
+         ), ),);
+      },
       child: Container(
         margin: EdgeInsets.only(right: 16),
         child: Stack(
@@ -146,10 +151,13 @@ class CategoryTile extends StatelessWidget {
 }
 
 class BlogTile extends StatelessWidget {
-  final String imageUrl, title, desc , url;
+  final String imageUrl, title, desc, url;
   //constructor
   BlogTile(
-      {@required this.imageUrl, @required this.title, @required this.desc, @required this.url});
+      {@required this.imageUrl,
+      @required this.title,
+      @required this.desc,
+      @required this.url});
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -158,7 +166,7 @@ class BlogTile extends StatelessWidget {
           context,
           MaterialPageRoute(
             builder: (context) => ArticleView(
-                blogUrl: url,
+              blogUrl: url,
             ),
           ),
         );

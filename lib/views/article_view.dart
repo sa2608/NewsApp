@@ -38,7 +38,6 @@ class _ArticleViewState extends State<ArticleView> {
           height: MediaQuery.of(context).size.height,
           width: MediaQuery.of(context).size.width,
         child: WebView(
-            // initialUrl: 'https://cointelegraph.com/news/when-altseason-here-s-why-bitcoin-is-leaving-major-altcoins-like-ethereum-behind',
             initialUrl: widget.blogUrl,
             //enables javascript in webview
             javascriptMode: JavascriptMode.unrestricted,
